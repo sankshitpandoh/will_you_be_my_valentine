@@ -54,6 +54,14 @@ function showMessage(response) {
     }
   
     if (response === "Yes") {
+        const videos = document.getElementsByTagName("video");
+
+        console.log(videos);
+        
+        if (videos.length > 0) {
+            Array.from(videos).forEach(video => video.remove());
+        }
+        
       // Remove the name message and the "No" button
       document.getElementById("name").remove();
       document.getElementById("no-button").remove();
