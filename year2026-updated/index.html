@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A tiny quest for you 💛</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div id="landing-screen" class="screen active">
+        <div class="landing-content">
+            <h1 class="landing-title">A tiny quest for you, Swara ❤️</h1>
+            <button id="start-button" class="cta-button">Start</button>
+        </div>
+    </div>
+
+    <!-- Stage Screen -->
+    <div id="stage-screen" class="screen">
+        <header class="game-header">
+            <h2 id="stage-title" class="stage-title">Stage 1: Word Play</h2>
+            <div class="progress-indicator">
+                <span id="progress-text">Stage 1 / 5</span>
+            </div>
+        </header>
+
+        <div class="token-bar">
+            <div class="token-slot" data-token="WILL">
+                <span class="token-placeholder">?</span>
+            </div>
+            <div class="token-slot" data-token="YOU">
+                <span class="token-placeholder">?</span>
+            </div>
+            <div class="token-slot" data-token="BE">
+                <span class="token-placeholder">?</span>
+            </div>
+            <div class="token-slot" data-token="MY">
+                <span class="token-placeholder">?</span>
+            </div>
+            <div class="token-slot" data-token="VALENTINE">
+                <span class="token-placeholder">?</span>
+            </div>
+        </div>
+
+        <div id="puzzle-container" class="puzzle-container">
+            <!-- Puzzle content will be rendered here -->
+        </div>
+
+        <footer class="game-footer">
+            <button id="hint-button" class="hint-button">Hint</button>
+            <button id="check-button" class="check-button">Check</button>
+            <button id="reset-stage-button" class="reset-button">Reset Stage</button>
+            <button id="settings-button" class="reset-button" style="font-size: 14px; padding: 8px 16px;">⚙️ Settings</button>
+        </footer>
+    </div>
+
+    <!-- Token Unlock Modal -->
+    <div id="token-modal" class="modal">
+        <div class="modal-content token-modal-content">
+            <div class="token-reveal">
+                <h2>Token Unlocked!</h2>
+                <div id="unlocked-token" class="unlocked-token">WILL</div>
+                <button id="continue-button" class="cta-button">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Assembly Screen -->
+    <div id="assembly-screen" class="screen">
+        <div class="assembly-content">
+            <h2 class="assembly-title">Assembling your message...</h2>
+            <div id="token-assembly" class="token-assembly">
+                <!-- Tokens will animate here -->
+            </div>
+            <button id="reveal-button" class="cta-button" style="display: none;">Reveal the question</button>
+        </div>
+    </div>
+
+    <!-- Final Ask Screen -->
+    <div id="final-ask-screen" class="screen">
+        <div class="final-ask-content">
+            <img src="assets/I Am Once Again Asking for Your Support.png" alt="I am once again asking" class="final-question-image">
+            <p class="final-question-text">you to be my valentine.</p>
+            <div class="final-buttons">
+                <button id="yes-valentine" class="yes-button">Yes 💛</button>
+                <button id="of-course-valentine" class="yes-button">Of course 😌</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div id="celebration-screen" class="screen">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="celebration-content">
+            <h2 class="celebration-title">🎉 Yay! 🎉</h2>
+            <p id="celebration-message" class="celebration-message"></p>
+            <p class="screenshot-prompt">Screenshot this moment!</p>
+            <button id="plan-date-button" class="cta-button">Plan our date</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>Settings</h2>
+            <button id="reset-all-button" class="reset-all-button">Reset All Progress</button>
+            <button id="close-settings-button" class="close-button">Close</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="puzzles/stage1-anagram.js"></script>
+    <script src="puzzles/stage2-lock.js"></script>
+    <script src="puzzles/stage3-tiles.js"></script>
+    <script src="puzzles/stage4-wordsearch.js"></script>
+    <script src="puzzles/stage5-quiz.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
