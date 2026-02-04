@@ -353,6 +353,43 @@ class Game {
         document.getElementById('celebration-message').textContent = 
             `You did it${name !== 'you' ? `, ${name}` : ''}! You're a ${score}! 💛`;
 
+        // Start video autoplay (start muted for browser compatibility, then unmute)
+        const video = document.getElementById('celebration-video');
+        if (video) {
+            video.currentTime = 0;
+            // Start muted to ensure autoplay works
+            video.muted = true;
+            
+            // Ensure video is loaded
+            if (video.readyState >= 2) {
+                // Video is already loaded, play immediately
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        setTimeout(() => {
+                            video.muted = false;
+                        }, 100);
+                    }).catch(e => {
+                        console.error('Video autoplay failed:', e);
+                    });
+                }
+            } else {
+                // Wait for video to load
+                video.addEventListener('loadeddata', () => {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            setTimeout(() => {
+                                video.muted = false;
+                            }, 100);
+                        }).catch(e => {
+                            console.error('Video autoplay failed:', e);
+                        });
+                    }
+                }, { once: true });
+            }
+        }
+
         // Confetti animation
         this.startConfetti();
     }

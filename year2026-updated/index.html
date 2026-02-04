@@ -91,14 +91,16 @@
     <!-- Celebration Screen -->
     <div id="celebration-screen" class="screen">
         <canvas id="confetti-canvas"></canvas>
+        <video id="celebration-video" class="celebration-video" autoplay muted loop playsinline>
+            <source src="assets/dance.mp4" type="video/mp4">
+        </video>
         <div class="celebration-content">
             <h2 class="celebration-title">🎉 Yay! 🎉</h2>
             <p id="celebration-message" class="celebration-message"></p>
-            <p class="screenshot-prompt">Screenshot this moment!</p>
             <div class="celebration-buttons">
                 <button id="plan-date-button" class="cta-button">Plan our date</button>
-                <button id="reset-quiz-button" class="reset-quiz-button">Reset Quiz</button>
             </div>
+            <button id="reset-quiz-button" class="reset-quiz-button">Reset Quiz</button>
         </div>
     </div>
 
