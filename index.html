@@ -9,16 +9,30 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="Mainprompt">
-            <img class="image" src="images/catflower.jpg"></img>
-            <h1 class="hh" id="name">Hey Swara!</h1>
-            <p class="pp" id="question">Will you be my Valentine?</p>
-            <div class="buttons">
-                <button id="no-button" onclick="showMessage('No')">No</button>
-                <button onclick="showMessage('Yes')" id="yesButton">Yes</button>
-            </div>
-        </div>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <h2 class="sidebar-title">Years</h2>
+            <button class="year-tab" data-year="2026">2026</button>
+            <button class="year-tab is-active" data-year="2025">2025</button>
+        </aside>
+        <main class="main-area">
+            <section class="year-content is-active" data-year="2025">
+                <div class="container">
+                    <div class="Mainprompt">
+                        <img class="image" src="images/catflower.jpg"></img>
+                        <h1 class="hh" id="name">Hey Swara!</h1>
+                        <p class="pp" id="question">Will you be my Valentine?</p>
+                        <div class="buttons">
+                            <button id="no-button" onclick="showMessage('No')">No</button>
+                            <button onclick="showMessage('Yes')" id="yesButton">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="year-content year-canvas" data-year="2026">
+                <div class="empty-canvas"></div>
+            </section>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>

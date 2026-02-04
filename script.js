@@ -1,3 +1,25 @@
+function setActiveYear(year) {
+  const tabs = document.querySelectorAll(".year-tab");
+  const panels = document.querySelectorAll(".year-content");
+
+  tabs.forEach((tab) => {
+    tab.classList.toggle("is-active", tab.dataset.year === year);
+  });
+
+  panels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.year === year);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".year-tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setActiveYear(tab.dataset.year);
+    });
+  });
+});
+
 function showMessage(response) {
     let videoPlayed = false;
     if (response === "No") {
