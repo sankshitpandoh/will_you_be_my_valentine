@@ -1,3 +1,79 @@
+function controlVideoInIframe(shouldPlay) {
+  const iframe = document.querySelector('.year-iframe');
+  if (iframe) {
+    try {
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      const video = iframeDoc.getElementById('celebration-video');
+      const celebrationScreen = iframeDoc.getElementById('celebration-screen');
+      
+      if (video) {
+        if (shouldPlay) {
+          // Only resume video if celebration screen is active
+          if (celebrationScreen && celebrationScreen.classList.contains('active')) {
+            video.play().catch(e => {
+              console.log('Video play failed:', e);
+            });
+          }
+        } else {
+          // Pause video when switching away from 2026 section
+          video.pause();
+        }
+      }
+    } catch (e) {
+      // Cross-origin or iframe not loaded yet - use postMessage
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ 
+          type: 'videoControl', 
+          action: shouldPlay ? 'play' : 'pause',
+          checkCelebration: shouldPlay // Flag to check celebration screen
+        }, '*');
+      }
+    }
+  }
+}
+
+function setActiveYear(year) {
+  const tabs = document.querySelectorAll(".year-tab");
+  const panels = document.querySelectorAll(".year-content");
+
+  tabs.forEach((tab) => {
+    tab.classList.toggle("is-active", tab.dataset.year === year);
+  });
+
+  panels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.year === year);
+  });
+
+  // Control video playback based on active section
+  controlVideoInIframe(year === '2026');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".year-tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setActiveYear(tab.dataset.year);
+    });
+  });
+
+  // Handle iframe load - check if 2026 section is active and control video accordingly
+  const iframe = document.querySelector('.year-iframe');
+  if (iframe) {
+    iframe.addEventListener('load', () => {
+      const year2026Panel = document.querySelector('.year-content[data-year="2026"]');
+      if (year2026Panel && year2026Panel.classList.contains('is-active')) {
+        // If 2026 is active when iframe loads, check if celebration screen is active before playing
+        setTimeout(() => {
+          controlVideoInIframe(true);
+        }, 500); // Small delay to ensure iframe content is ready
+      } else {
+        // If another section is active, pause video
+        controlVideoInIframe(false);
+      }
+    });
+  }
+});
+
 function showMessage(response) {
     let videoPlayed = false;
     if (response === "No") {
