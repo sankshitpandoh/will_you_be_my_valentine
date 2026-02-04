@@ -1,3 +1,5 @@
+//sample testing key
+//{"version":1,"name":"Swara","currentStage":6,"solved":{"stage1":true, "stage2":true, "stage3":true, "stage4":true, "stage5":true},"tokens":["WILL", "YOU", "BE", "MY", "VALENTINE"],"hintsUsed":{}}
 // Core Game Engine
 class Game {
     constructor() {
@@ -92,11 +94,11 @@ class Game {
         });
 
         document.getElementById('yes-valentine').addEventListener('click', () => {
-            this.showCelebration();
+            this.showCelebration('yes');
         });
 
         document.getElementById('of-course-valentine').addEventListener('click', () => {
-            this.showCelebration();
+            this.showCelebration('of-course');
         });
 
         document.getElementById('plan-date-button').addEventListener('click', () => {
@@ -339,7 +341,7 @@ class Game {
         this.saveState();
     }
 
-    showCelebration() {
+    showCelebration(buttonType = 'yes') {
         this.hideAllScreens();
         document.getElementById('celebration-screen').classList.add('active');
         this.state.currentStage = 7;
@@ -353,9 +355,12 @@ class Game {
         document.getElementById('celebration-message').textContent = 
             `WE ARE GOING ON A 2-DAY TRIP AT A COZY HOUSE IN NANDI HILLS FOR THE 14TH!!! 🏔️✨💛${name !== 'you' ? ` Get ready, ${name}!` : ''}`;
 
-        // Start video autoplay with audio (user interaction allows sound)
+        // Set video source based on button pressed
         const video = document.getElementById('celebration-video');
         if (video) {
+            // If "of course" was pressed, use dance2.mp4, otherwise use dance.mp4
+            const videoSource = buttonType === 'of-course' ? 'assets/dance2.mp4' : 'assets/dance.mp4';
+            video.src = videoSource;
             video.currentTime = 0;
             video.muted = false;
             
