@@ -495,4 +495,50 @@ class Game {
 // Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.game = new Game();
+    
+    // Listen for video control messages from parent window (when in iframe)
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'videoControl') {
+            const video = document.getElementById('celebration-video');
+            const celebrationScreen = document.getElementById('celebration-screen');
+            
+            if (video) {
+                if (event.data.action === 'play') {
+                    // Only play if celebration screen is active (when checkCelebration flag is set)
+                    if (event.data.checkCelebration) {
+                        if (celebrationScreen && celebrationScreen.classList.contains('active')) {
+                            video.play().catch(e => {
+                                console.log('Video play failed:', e);
+                            });
+                        }
+                    } else {
+                        // If no check flag, play anyway (for other cases)
+                        video.play().catch(e => {
+                            console.log('Video play failed:', e);
+                        });
+                    }
+                } else if (event.data.action === 'pause') {
+                    video.pause();
+                }
+            }
+        }
+    });
+    
+    // Also handle visibility changes (when iframe becomes visible/hidden)
+    document.addEventListener('visibilitychange', () => {
+        const video = document.getElementById('celebration-video');
+        if (video) {
+            if (document.hidden) {
+                video.pause();
+            } else {
+                // Only resume if we're on the celebration screen
+                const celebrationScreen = document.getElementById('celebration-screen');
+                if (celebrationScreen && celebrationScreen.classList.contains('active')) {
+                    video.play().catch(e => {
+                        console.log('Video play failed:', e);
+                    });
+                }
+            }
+        }
+    });
 });
