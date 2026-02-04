@@ -351,42 +351,43 @@ class Game {
         
         const name = this.state.name || 'you';
         document.getElementById('celebration-message').textContent = 
-            `You did it${name !== 'you' ? `, ${name}` : ''}! You're a ${score}! 💛`;
+            `WE ARE GOING ON A 2-DAY TRIP AT A COZY HOUSE IN NANDI HILLS FOR THE 14TH!!! 🏔️✨💛${name !== 'you' ? ` Get ready, ${name}!` : ''}`;
 
-        // Start video autoplay (start muted for browser compatibility, then unmute)
+        // Start video autoplay with audio (user interaction allows sound)
         const video = document.getElementById('celebration-video');
         if (video) {
             video.currentTime = 0;
-            // Start muted to ensure autoplay works
-            video.muted = true;
+            video.muted = false;
             
-            // Ensure video is loaded
-            if (video.readyState >= 2) {
-                // Video is already loaded, play immediately
+            // Function to play video with sound
+            const playVideoWithSound = () => {
                 const playPromise = video.play();
                 if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        setTimeout(() => {
-                            video.muted = false;
-                        }, 100);
-                    }).catch(e => {
-                        console.error('Video autoplay failed:', e);
-                    });
-                }
-            } else {
-                // Wait for video to load
-                video.addEventListener('loadeddata', () => {
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
+                    playPromise.catch(e => {
+                        // If autoplay with sound fails, try muted then unmute
+                        console.log('Autoplay with sound blocked, trying muted approach:', e);
+                        video.muted = true;
+                        video.play().then(() => {
+                            // Unmute after a short delay
                             setTimeout(() => {
                                 video.muted = false;
-                            }, 100);
-                        }).catch(e => {
-                            console.error('Video autoplay failed:', e);
+                            }, 200);
+                        }).catch(err => {
+                            console.error('Video autoplay failed:', err);
                         });
-                    }
-                }, { once: true });
+                    });
+                }
+            };
+            
+            // Ensure video is loaded before playing
+            if (video.readyState >= 2) {
+                // Video is already loaded, play immediately
+                playVideoWithSound();
+            } else {
+                // Wait for video to load
+                video.addEventListener('loadeddata', playVideoWithSound, { once: true });
+                // Also try to load the video
+                video.load();
             }
         }
 

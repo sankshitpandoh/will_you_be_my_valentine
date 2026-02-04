@@ -713,9 +713,26 @@ body {
 }
 
 .celebration-message {
-    font-size: clamp(20px, 4vw, 28px);
+    font-size: clamp(24px, 5vw, 36px);
     margin-bottom: 20px;
     color: #71004f;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    animation: pulse-excite 2s ease-in-out infinite;
+    line-height: 1.4;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes pulse-excite {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .screenshot-prompt {
