@@ -712,6 +712,36 @@ body {
     margin-bottom: 30px;
 }
 
+.celebration-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+}
+
+.reset-quiz-button {
+    background: rgba(255, 255, 255, 0.9);
+    color: #71004f;
+    border: 2px solid rgba(113, 0, 79, 0.3);
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 44px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.reset-quiz-button:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(113, 0, 79, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Success Message */
 .success-message {
     text-align: center;

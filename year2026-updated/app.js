@@ -103,6 +103,10 @@ class Game {
             alert('💛 Let\'s make it special! 💛');
         });
 
+        document.getElementById('reset-quiz-button').addEventListener('click', () => {
+            this.resetAll();
+        });
+
         // Settings
         document.getElementById('reset-all-button').addEventListener('click', () => {
             this.resetAll();
